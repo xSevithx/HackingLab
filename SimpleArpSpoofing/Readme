@@ -1,0 +1,26 @@
+There is 4 images that are built and ran. 2 Victim machines, a vulnerable web application and a hacker machine which has access into Kali linux repositories.
+
+To spin up the instances make sure you have installed docker-machine;
+You can install docker machine by doing;
+
+1) curl -L https://github.com/docker/machine/releases/download/v0.16.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine &&
+2) chmod +x /tmp/docker-machine &&
+3) sudo cp /tmp/docker-machine /usr/local/bin/docker-machine
+
+Once docker machine is installed, make sure you are running the latest docker; I ran this under; Version: 17.05.0-ce; API version: 1.29; Go version: go1.7.5; without any problems.
+
+I will update this and make it better but its just a rough draft right now.
+1) Run ./Start-Env.sh as root
+Start-Env.sh will build all the images and create the network; and then spin up the images into a container; They should be removed each time Start-Env.sh is ran, and you should have a disposable docker enviroment to run this lab in.
+2) docker ps -a
+3) docker exec -it s1-h1 /bin/bash (Make sure s1-h1 is the container ID for s1-h1
+4) Scripts to enumerate the network are in /root/python
+
+You can execute them as such;
+
+python3 get_arps.py -t 172.18.0.0/16 -i eth0
+
+Example to Spoof a machine; python3 arp_spoof.py (Will fill this out later)
+
+NOTE:
+You do need to add your recaptcha keys in VulnerableWebApp1/config.inc.php
