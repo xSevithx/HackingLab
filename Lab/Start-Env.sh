@@ -3,7 +3,14 @@ if [[ $EUID -ne 0 ]]; then
    echo "This script must be run as root" 
    exit 1
 fi
-
+if ! type -P docker-machine ; then
+	echo "Installing docker-machine..."
+	curl -L https://github.com/docker/machine/releases/download/v0.16.0/docker-machine-`uname -s`-`uname -m` >/tmp/docker-machine
+	chmod +x /tmp/docker-machine
+	cp /tmp/docker-machine /usr/local/bin/docker-machine
+else
+	echo "docker-machine exists..."
+fi
 echo "Creating network..."
 docker network create sim-one
 
